@@ -90,6 +90,11 @@ class Util {
         x:0,
         y:0
     }
+    static touch:{x?:number,y?:number,isPressed?:boolean}={
+        x:null,
+        y:null,
+        isPressed:false
+    }
     static captureMouse(element:HTMLElement) {
 
         element.addEventListener('mousemove',(ev) => {
@@ -106,31 +111,26 @@ class Util {
 
     }
     static captureTouch(element:HTMLElement) {
-        let touch:{x?:number,y?:number,isPressed?:boolean}={
-            x:null,
-            y:null,
-            isPressed:false
-        }
+
         element.addEventListener('touchstart',(ev) => {
-           touch.isPressed=true
-            console.log(touch)
-            console.log(ev.targetTouches.length)
+            this.touch.isPressed=true
+           
         })
         element.addEventListener('touchend',(ev) => {
-            touch.isPressed=false
-            touch.x=null
-            touch.y=null
-            console.log(touch)
+            this.touch.isPressed=false
+            this.touch.x=null
+            this.touch.y=null
+
         })
         element.addEventListener('touchmove',(ev) => {
             var x,y
             let touch_event=ev.touches[0]
-            touch.x=touch_event.pageX-element.offsetLeft
-            touch.y=touch_event.pageY-element.offsetTop
-            console.log(touch)
+            this.touch.x=touch_event.pageX-element.offsetLeft
+            this.touch.y=touch_event.pageY-element.offsetTop
+
         })
 
-        return touch
+
 
 
     }
